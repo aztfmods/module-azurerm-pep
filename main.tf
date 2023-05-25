@@ -22,6 +22,7 @@ resource "azurerm_private_endpoint" "endpoint" {
 
   private_service_connection {
     name                           = "endpoint"
+    is_manual_connection           = false
     private_connection_resource_id = var.endpoint.resource_id
     subresource_names              = var.endpoint.subresources
   }
