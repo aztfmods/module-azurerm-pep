@@ -1,6 +1,6 @@
 # dns zone
 resource "azurerm_private_dns_zone" "zone" {
-  name                = var.endpoint.private_dns_zone
+  name                = var.endpoint.private_dns_zone.name
   resource_group_name = var.endpoint.resourcegroup
 }
 
@@ -27,3 +27,17 @@ resource "azurerm_private_endpoint" "endpoint" {
     subresource_names              = var.endpoint.subresources
   }
 }
+
+# private dns a record
+resource "azurerm_private_dns_a_record" "a_record" {
+  name                = var.endpoint.private_dns_zone.a_record_name
+  zone_name           = azurerm_private_dns_zone.zone.name
+  resource_group_name = var.endpoint.resourcegroup
+  ttl                 = try(var.endpoint.private_dns_zone.a_record.ttl, 300)
+  records             = [azurerm_private_endpoint.endpoint.private_service_connection.0.private_ip_address]
+}
+
+
+
+
+
