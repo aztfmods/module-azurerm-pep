@@ -30,7 +30,7 @@ resource "azurerm_private_endpoint" "endpoint" {
 
 # private dns a record
 resource "azurerm_private_dns_a_record" "a_record" {
-  name                = var.endpoint.private_dns_zone.a_record_name
+  name                = var.endpoint.private_dns_zone.a_record.name
   zone_name           = azurerm_private_dns_zone.zone.name
   resource_group_name = var.endpoint.resourcegroup
   ttl                 = try(var.endpoint.private_dns_zone.a_record.ttl, 300)
