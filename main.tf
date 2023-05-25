@@ -9,7 +9,7 @@ resource "azurerm_private_dns_zone_virtual_network_link" "link" {
   name                  = "link"
   resource_group_name   = var.endpoint.resourcegroup
   private_dns_zone_name = azurerm_private_dns_zone.zone.name
-  virtual_network_id    = var.endpoint.virtual_network_id
+  virtual_network_id    = var.endpoint.private.dns_zone.network_link
   registration_enabled  = true
 }
 
