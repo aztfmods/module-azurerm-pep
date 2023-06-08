@@ -1,5 +1,4 @@
 variable "endpoint" {}
-variable "company" {}
-variable "region" {}
-variable "env" {}
-
+variable "workload" {}
+variable "environment" {}
+variable "location_short" {}

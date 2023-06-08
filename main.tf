@@ -4,9 +4,18 @@ resource "azurerm_private_dns_zone" "zone" {
   resource_group_name = var.endpoint.resourcegroup
 }
 
+# generate random id
+resource "random_string" "random" {
+  length    = 3
+  min_lower = 3
+  special   = false
+  numeric   = false
+  upper     = false
+}
+
 # network link
 resource "azurerm_private_dns_zone_virtual_network_link" "link" {
-  name                  = "link"
+  name                  = "link${random_string.random.result}"
   resource_group_name   = var.endpoint.resourcegroup
   private_dns_zone_name = azurerm_private_dns_zone.zone.name
   virtual_network_id    = var.endpoint.private_dns_zone.network_link
@@ -15,7 +24,7 @@ resource "azurerm_private_dns_zone_virtual_network_link" "link" {
 
 # private endpoint
 resource "azurerm_private_endpoint" "endpoint" {
-  name                = "pep-${var.company}-${var.env}-${var.region}"
+  name                = "pep-${var.workload}-${var.environment}-${var.region_short}"
   location            = var.endpoint.location
   resource_group_name = var.endpoint.resourcegroup
   subnet_id           = var.endpoint.subnet_id
