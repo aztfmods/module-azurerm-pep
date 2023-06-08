@@ -24,7 +24,7 @@ resource "azurerm_private_dns_zone_virtual_network_link" "link" {
 
 # private endpoint
 resource "azurerm_private_endpoint" "endpoint" {
-  name                = "pep-${var.company}-${var.env}-${var.region}"
+  name                = "pep-${var.workload}-${var.environment}-${var.region_short}"
   location            = var.endpoint.location
   resource_group_name = var.endpoint.resourcegroup
   subnet_id           = var.endpoint.subnet_id
